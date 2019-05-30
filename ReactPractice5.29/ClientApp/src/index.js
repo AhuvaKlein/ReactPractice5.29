@@ -1,19 +1,29 @@
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/css/bootstrap-theme.css';
-import './index.css';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import Display from './Display';
+import Clicker from './Clicker';
+import { render } from 'react-dom';
 
-const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
-const rootElement = document.getElementById('root');
+class App extends React.Component {
 
-ReactDOM.render(
-  <BrowserRouter basename={baseUrl}>
-    <App />
-  </BrowserRouter>,
-  rootElement);
+    state = {
+        num: 0
+    };
 
-registerServiceWorker();
+    incrementClicker = () => {
+        let { num } = this.state;
+        this.setState({ num: num + 1 });
+    }
+
+    render() {
+        return (
+            <div className="container" style={{ marginTop: 40 }}>
+                <Clicker increment={this.incrementClicker} />
+                <Display num={this.state.num} />
+            </div>
+        )
+    }
+
+
+}
+
+render(<App />, document.getElementById('root'));
